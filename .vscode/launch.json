@@ -1,0 +1,13 @@
+{
+  // Start a TypeLua debug session for the file currently in the editor.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "typelua",
+      "request": "launch",
+      "name": "Debug TypeLua",
+      "program": "${file}",
+      "stopOnEntry": true
+    }
+  ]
+}
