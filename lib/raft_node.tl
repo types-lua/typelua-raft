@@ -503,7 +503,11 @@ class RaftNode implements RaftNodeApi {
     elseif current > self.log:baseIndex() + 1 then
       self.nextIndex[from] = current - 1
     else
-      self.nextIndex[from] = self.log:baseIndex() + 1
+      -- A failure that would move nextIndex at or below the compacted base
+      -- carries no useful backtrack (often it is a stale reply to a request
+      -- sent before a successful append). Wait for the next heartbeat rather
+      -- than resending the same probe forever.
+      return
     end
     self:sendAppend(from)
   end,
