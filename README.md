@@ -145,11 +145,11 @@ message union leave room for each without rewriting the node.
 
 ## Requirements
 
-- A `tlua` compiler build (TypeLua `v0.9.4` or newer). The editor needs
-  0.9.4+ because `tlua lsp` loads the project's `types/*.d.tl` ambient
-  declarations and maps go-to-definition to the declaration file; older
-  servers report TL3103 for ambient types and jump to the wrong line even
-  though `tlua check` is clean.
+- A `tlua` compiler build (TypeLua `v0.9.5` or newer). The editor needs
+  0.9.5+ because `tlua lsp` loads the project's `types/*.d.tl` ambient
+  declarations and maps go-to-definition/references to the declaration file;
+  older servers report TL3103 for ambient types and can jump to the wrong
+  line even though `tlua check` is clean.
 - Lua 5.4 (default) or LuaJIT/Lua 5.1 for the 5.1 target.
 - No third-party Lua modules.
 
