@@ -12,5 +12,5 @@
 - Deterministic simulator: latency, one-way drops, partitions, message
   counters, and executable safety invariants.
 - Binary-safe KV state machine with deterministic snapshots.
-- 48 cases / 1049 assertions, passing on Lua 5.4 and LuaJIT/target 5.1.
+- 49 cases / 1042 assertions, passing on Lua 5.4 and LuaJIT/target 5.1.
 - CI type-checks, runs both targets, builds the demo and runs the quickstart.

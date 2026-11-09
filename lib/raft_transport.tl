@@ -96,6 +96,19 @@ class InMemoryTransport implements Transport {
     self.blocked[key] = blocked
     if blocked then
       self.blockedLinks = self.blockedLinks + 1
+      -- A real partition also loses messages already in flight on that link;
+      -- keeping them would let a heartbeat cross a partition retroactively.
+      local queue: Envelope[] | nil = self.queues[to]
+      if queue ~= nil then
+        local kept: Envelope[] = {}
+        for i: integer = 1, #queue! do
+          local envelope: Envelope = queue![i]
+          if envelope.from ~= from then
+            kept[#kept + 1] = envelope
+          end
+        end
+        self.queues[to] = kept
+      end
     else
       self.blockedLinks = self.blockedLinks - 1
     end

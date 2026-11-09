@@ -1,7 +1,7 @@
 # Type-check and run the full Raft suite on Lua 5.4 and LuaJIT (5.1).
 #
 # The tlua compiler is built from the TypeLua repository. LuaJIT is installed
-# because the suite is also a portability test: the same 48 cases must pass
+# because the suite is also a portability test: the same 49 cases must pass
 # with --target 5.1 (no floor division, no 5.4-only syntax).
 name: CI
 

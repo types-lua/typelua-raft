@@ -63,6 +63,16 @@ return {
     T.eq(transport:pending(), 2, "healed")
   end,
 
+  ["blocking drops messages already in flight"] = function(): void
+    local transport = net.InMemoryTransport.new()
+    transport:send("a", "b", vote(1))
+    T.eq(transport:pending(), 1, "queued")
+    transport:setBlocked("a", "b", true)
+    T.eq(transport:pending(), 0, "in-flight message dropped")
+    transport:advance(1)
+    T.eq(#transport:drain("b", 1), 0, "nothing arrives")
+  end,
+
   ["counters"] = function(): void
     local transport = net.InMemoryTransport.new()
     transport:send("a", "b", vote(1))

@@ -10,7 +10,7 @@ reproducible from a seed, which makes the hard parts of Raft testable.
 
 ```bash
 tlua check          # strict type checking (22 files)
-tlua test           # 48 cases / 1049 assertions
+tlua test           # 49 cases / 1042 assertions
 tlua example quickstart
 tlua run main.tl    # partition + heal demo
 ```
