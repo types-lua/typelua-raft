@@ -25,25 +25,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Checkout TypeLua (compiler)
-        uses: actions/checkout@v4
-        with:
-          repository: types-lua/TypeLua
-          path: .typelua/TypeLua
+      - name: Checkout TypeLua (compiler, outside the workspace)
+        run: |
+          git clone --depth 1 https://github.com/types-lua/TypeLua.git "$RUNNER_TEMP/TypeLua"
 
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: .typelua/TypeLua/go.mod
-          cache: true
-          cache-dependency-path: .typelua/TypeLua/go.sum
+          go-version-file: ${{ runner.temp }}/TypeLua/go.mod
+          cache: false
 
       - name: Install Lua interpreters
         run: sudo apt-get update && sudo apt-get install -y lua5.4 luajit
 
       - name: Build tlua
         run: go build -o /tmp/tlua ./cmd/tlua
-        working-directory: .typelua/TypeLua
+        working-directory: ${{ runner.temp }}/TypeLua
 
       - name: Type-check (strict)
         run: /tmp/tlua check
