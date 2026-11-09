@@ -1,0 +1,11 @@
+{
+  // The project is TypeLua; force the language even if a .tl buffer was
+  // previously opened as Lua/plain text.
+  "files.associations": {
+    "*.tl": "typelua"
+  },
+  // Breakpoint gutter + allow breakpoints in files whose language mode is
+  // temporarily wrong (the TypeLua DAP also debugs valid Lua).
+  "editor.glyphMargin": true,
+  "debug.allowBreakpointsEverywhere": true
+}
