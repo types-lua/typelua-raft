@@ -308,6 +308,12 @@ class FileStorage implements Storage {
       error("FileStorage: short write " .. tmp)
     end
     local renamed, renameErr = os.rename(tmp, self.path)
+    if renamed == nil and package.config:sub(1, 1) == "\\" then
+      -- Windows' rename does not replace an existing file. Losing atomicity
+      -- there is preferable to failing every save.
+      os.remove(self.path)
+      renamed, renameErr = os.rename(tmp, self.path)
+    end
     if renamed == nil then
       os.remove(tmp)
       error("FileStorage: rename failed: " .. tostring(renameErr))

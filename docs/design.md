@@ -196,8 +196,9 @@ trace; the election test asserts `saveHardState` appears before
 `send:requestVoteReply`, and `saveLog` before `send:appendEntriesReply`.
 
 `FileStorage` adds a header, length-prefixed fields (binary safe) and a
-checksum, writes to `path.tmp`, then `os.rename`s it. Truncated or bit-rotten
-files fail loudly instead of starting a node with a corrupt log.
+checksum, writes to `path.tmp`, then `os.rename`s it (atomic on POSIX; Windows
+falls back to remove+rename). Truncated or bit-rotten files fail loudly instead
+of starting a node with a corrupt log.
 
 ## 9. Determinism and fault injection
 

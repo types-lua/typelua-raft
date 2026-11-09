@@ -119,8 +119,9 @@ still present on every node afterwards.
 ## Durability
 
 `FileStorage` writes the complete state through a temporary file and
-`os.rename`, with header/version, netstring fields and a checksum. It is a
-reference adapter, not a production database:
+`os.rename` (atomic on POSIX; Windows falls back to remove+rename), with
+header/version, netstring fields and a checksum. It is a reference adapter, not
+a production database:
 
 - every save rewrites the file (no incremental WAL, no `fsync`);
 - the parent directory must exist;
